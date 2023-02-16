@@ -52,18 +52,23 @@ export default class MagpieSpeckle extends SpeckleNode<SpeckleStream> {
         })();
     }
 
-    public get programChunks(): Promise<ProgramChunkLayer> {
-        return (async () => {
-            return new ProgramChunkLayer(await this._getLayerItems("ProgramChunks"), this);
-        })();
+    public get programChunks(): ProgramChunkLayer {
+            return new ProgramChunkLayer(this.id, this);
     }
+
+    // public get allShit(): Promise<object> {
+    //     return (async () => {
+    //         return new (await this.get).Data['@{0}'][0], this);
+    //     })();
+    // }
+
 
     private async _getLayerId(layer: string) {
         return (await this.get).Data['@{0}'][0][layer].referencedId;
     }
 
     private async _getLayerItems(layer : string){
-        const res = (await this.get).Data['@{0}'][0];
+        const res = (await this.get).Data['@{0}'][0][layer];
         console.log(res)
         return (await  this.get).Data['@{0}'][0][layer];
     }
